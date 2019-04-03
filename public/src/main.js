@@ -50,15 +50,16 @@ function observer() {
       var displayName = user.displayName;
       var email = user.email;
       var emailVerified = user.emailVerified;
-      var photoURL = user.photoURL;
+      var photoURL = user.photoURL || 'https://st2.depositphotos.com/1005091/10267/v/950/depositphotos_102676744-stock-illustration-silhouette-of-leafy-tree-theme.jpg';
       var isAnonymous = user.isAnonymous;
       var uid = user.uid;
       var providerData = user.providerData;
       document.getElementById("img").innerHTML ="<img src='" +photoURL + "'class='pik'>";
-      document.getElementById("nombre").innerHTML =displayName 
+      //document.getElementById("nombre").innerHTML =displayName 
       // ...
-      console.log ("no existe usuario");
+      
     } else {
+      console.log ("no existe usuario");
     }
   });
 }
@@ -112,4 +113,78 @@ const btnGoogle= document.getElementById("google");
  
  });
  
+var db = firebase.firestore();
+//Agregar comentario
+function guardar(){
+  console.log("guardar")
+  let nombre = document.getElementById('nombre').value;
+  let fecha = document.getElementById('fecha').value;
+  let comentario = document.getElementById('comentario').value;
+  console.log(nombre, fecha, comentario)
+  db.collection("users").add({
+    first: nombre,
+    last: fecha,
+    born: comentario
+    })
+    .then(function(docRef) {
+    console.log("Document written with ID: ", docRef.id);
+    // Refrescar pantalla por medio de strin limpios
+      document.getElementById("nombre").value = " ";
+      document.getElementById("fecha").value = " ";
+      document.getElementById("comentario").value = " ";
+    })
+    .catch(function(error) {
+    console.error("Error adding document: ", error);
+    });
+}
+
+//Leer datos
+db.collection("users").get().then((querySnapshot) => {
+  querySnapshot.forEach((doc) => {
+      console.log(`${doc.id} => ${doc.data()}`);
+  });
+});
+
+var newPost = document.getElementById('newPost');
+db.collection("users").get().then((querySnapshot) => {
+  querySnapshot.forEach((doc) => {
+      console.log(`${doc.id} => ${doc.data().first}`);
+    newPost.innerHTML += `
+    <div id="sub-menu">
+  <div id="left-bar">
+    <div class="heading">
+      Notifications
+    </div>
+  </div>
+  <div id="right-bar">
+  
+  </div>
+</div>
+<div id="main-window">
+  <div class="post">
+    <div class="user">
+      <div class="user-img"></div>
+      <div class="user-info">
+        <div class="user-name">${doc.data().first}</div>
+        <span class="post-date">${doc.data().last}</span>
+      </div>
+      <div class="actions">
+        <span class="heart"></span>
+        <span class="comment"></span>
+        <span class="share"></span>
+      </div>
+    </div>
+    <div class="content">
+      <div class="user-name">${doc.data().born}</div>
+      
+    </div>
+  </div>
+    
+    `
+    });
+});
+
+
+
+
 
