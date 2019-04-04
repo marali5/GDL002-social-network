@@ -67,17 +67,44 @@
       
     </header>
 
-    <div class="container"></div>
-    <h1>Postear</h1>
-          <div class="user-img" id="img"></div>
-            <div class="user-name" id=""></div>
+    
+<!--NUEVOS DATOS-->
+<h1>Postear</h1>
+  
+  <div class="container"></div>
+  <!-- Introducir datos -->
+  <div class="new-post"></div>
+</div>
+<div id="sub-menu">
+  <div id="left-bar">
+    <div class="heading">
+      Notifications
+    </div>
+  </div>
+  <div id="right-bar">
+  
+  </div>
+</div>
+<div id="main-window">
+  <div class="post">
+    <div class="user">
+      <div class="user-img"></div>
+      <div class="user-info">
+        <div class="user-name"><input type="text" id="nombre" placeholder="nombre"></div>
+        <span class="post-date"><input type="text" id="fecha" placeholder="fecha"></span>
+      </div>
+      
+    </div>
+    <div class="content">
+      <input type="text" id="comentario" placeholder="comentario">
+      <button class="btn-info" id="boton" onclick="guardar()">Guardar</button>
+    </div>
+  </div>
+  <div id="newPost"></div>
+  </div>
 
-
-            <input type="text" id="nombre" placeholder="nombre" class="form-control my-3">
-            <input type="text" id="fecha" placeholder="fecha" class="form-controlmy-3">
-            <input type="text" id="comentario" placeholder="introduce tu comentario" class="form-controlmy-3">
-            <button class="btn btn-info" id="boton" onclick="guardar()">Guardar</button>
-            <div class="new-post"></div>
+<!--FIN NUEVOS DATOS-->
+            
     </div>
   </div>
   </div>

@@ -54,7 +54,7 @@ function observer() {
       var isAnonymous = user.isAnonymous;
       var uid = user.uid;
       var providerData = user.providerData;
-      document.getElementById("img").innerHTML ="<img src='" +photoURL + "'class='pik'>";
+      //document.getElementById("img").innerHTML ="<img src='" +photoURL + "'class='pik'>";
       //document.getElementById("nombre").innerHTML =displayName 
       // ...
       
@@ -138,17 +138,12 @@ function guardar(){
     });
 }
 
-//Leer datos
-db.collection("users").get().then((querySnapshot) => {
-  querySnapshot.forEach((doc) => {
-      console.log(`${doc.id} => ${doc.data()}`);
-  });
-});
-
+//Leer documentos
 var newPost = document.getElementById('newPost');
-db.collection("users").get().then((querySnapshot) => {
-  querySnapshot.forEach((doc) => {
-      console.log(`${doc.id} => ${doc.data().first}`);
+db.collection("users").onSnapshot((querySnapshot) => {
+    newPost.innerHTML = '';
+    querySnapshot.forEach((doc) => {
+        console.log(`${doc.id} => ${doc.data().first}`);
     newPost.innerHTML += `
     <div id="sub-menu">
   <div id="left-bar">
@@ -170,8 +165,8 @@ db.collection("users").get().then((querySnapshot) => {
       </div>
       <div class="actions">
         <span class="heart"></span>
-        <span class="comment"></span>
-        <span class="share"></span>
+        <span class="comment" onclick="eliminar('${doc.id}')"></span>
+        <span class="share" onclick="editar('${doc.id}','${doc.data().first}','${doc.data().last}','${doc.data().born}')"></span>
       </div>
     </div>
     <div class="content">
@@ -179,12 +174,51 @@ db.collection("users").get().then((querySnapshot) => {
       
     </div>
   </div>
-    
-    `
+  `
     });
 });
+//borrar documentos
+function eliminar(id){
+  db.collection("users").doc(id).delete().then(function() {
+      console.log("Document successfully deleted!");
+  }).catch(function(error) {
+      console.error("Error removing document: ", error);
+  });
+  }
 
+//editar documentos
 
+function editar(id,nombre,fecha,comentario){
+	document.getElementById('nombre').value=nombre;
+	document.getElementById('fecha').value=fecha;
+	document.getElementById('comentario').value=comentario;
+	var boton=document.getElementById('boton');
+	boton.innerHTML = 'Editar';
 
+	boton.onclick = function(){
+	var washingtonRef = db.collection("users").doc(id);	
+
+var nombre =document.getElementById('nombre').value;
+var apellido=document.getElementById('fecha').value;
+var fecha=document.getElementById('comentario').value;
+
+return washingtonRef.update({
+    first: nombre,
+    last: fecha,
+    born: comentario
+})
+.then(function() {
+    console.log("Document successfully updated!");
+    boton.innerHTML = 'guardar';
+    document.getElementById('nombre').value = "";
+	document.getElementById('fecha').value= "";
+	document.getElementById('comentario').value= "";
+})
+.catch(function(error) {
+    // The document probably doesn't exist.
+    console.error("Error updating document: ", error);
+});	
+}
+}
 
 
