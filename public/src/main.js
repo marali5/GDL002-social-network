@@ -1,3 +1,10 @@
+entrar.addEventListener("click", function(){
+
+document.getElementById("screen1").style.display = "block";
+document.getElementById("screen0").style.display = "none";
+});
+
+
 function checkIn() {
   let textEmail = document.getElementById("email").value;
   let textPassword = document.getElementById("password").value;
@@ -44,16 +51,17 @@ function observer() {
     if (user) {
       document.getElementById("screen2").style.display = "block"
       document.getElementById("screen1").style.display = "none"
+      document.getElementById("screen0").style.display = "none"
       console.log("existe usuario");
       // User is signed in.
-      console.log(user);
-      var displayName = user.displayName;
-      var email = user.email;
-      var emailVerified = user.emailVerified;
-      var photoURL = user.photoURL || 'https://st2.depositphotos.com/1005091/10267/v/950/depositphotos_102676744-stock-illustration-silhouette-of-leafy-tree-theme.jpg';
-      var isAnonymous = user.isAnonymous;
-      var uid = user.uid;
-      var providerData = user.providerData;
+     // console.log(user);
+    //  var displayName = user.displayName;
+     // var email = user.email;
+     // var emailVerified = user.emailVerified;
+      //var photoURL = user.photoURL || 'https://st2.depositphotos.com/1005091/10267/v/950/depositphotos_102676744-stock-illustration-silhouette-of-leafy-tree-theme.jpg';
+     // var isAnonymous = user.isAnonymous;
+     // var uid = user.uid;
+      //var providerData = user.providerData;
       //document.getElementById("img").innerHTML ="<img src='" +photoURL + "'class='pik'>";
       //document.getElementById("nombre").innerHTML =displayName 
       // ...
@@ -95,20 +103,20 @@ const btnGoogle= document.getElementById("google");
 
   var provider = new firebase.auth.GoogleAuthProvider();
   firebase.auth().signInWithPopup(provider).then(function(result) {
-    // This gives you a Google Access Token. You can use it to access the Google API.
+    //This gives you a Google Access Token. You can use it to access the Google API.
     var token = result.credential.accessToken;
-    // The signed-in user info.
+   //  The signed-in user info.
     var user = result.user;
     // ...
   }).catch(function(error) {
-    // Handle Errors here.
+  //  Handle Errors here.
     var errorCode = error.code;
     var errorMessage = error.message;
-    // The email of the user's account used.
+   // The email of the user's account used.
     var email = error.email;
-    // The firebase.auth.AuthCredential type that was used.
+    //The firebase.auth.AuthCredential type that was used.
     var credential = error.credential;
-    // ...
+    //...
   }); 
  
  });
@@ -118,7 +126,7 @@ var db = firebase.firestore();
 function guardar(){
   console.log("guardar")
   let nombre = document.getElementById('nombre').value;
-  let fecha = document.getElementById('fecha').value;
+  var fecha=(formatDate(new Date())); 
   let comentario = document.getElementById('comentario').value;
   console.log(nombre, fecha, comentario)
   db.collection("users").add({
@@ -130,7 +138,7 @@ function guardar(){
     console.log("Document written with ID: ", docRef.id);
     // Refrescar pantalla por medio de strin limpios
       document.getElementById("nombre").value = " ";
-      document.getElementById("fecha").value = " ";
+      document.getElementById(fecha);
       document.getElementById("comentario").value = " ";
     })
     .catch(function(error) {
@@ -165,8 +173,8 @@ db.collection("users").onSnapshot((querySnapshot) => {
       </div>
       <div class="actions">
         <span class="heart"></span>
-        <span class="comment" onclick="eliminar('${doc.id}')"></span>
-        <span class="share" onclick="editar('${doc.id}','${doc.data().first}','${doc.data().last}','${doc.data().born}')"></span>
+        <span class="comment" onclick="confirmDelete('${doc.id}')"></span>
+        <span class="share" onclick="editar('${doc.id}','${doc.data().born}')"></span>
       </div>
     </div>
     <div class="content">
@@ -188,30 +196,24 @@ function eliminar(id){
 
 //editar documentos
 
-function editar(id,nombre,fecha,comentario){
-	document.getElementById('nombre').value=nombre;
-	document.getElementById('fecha').value=fecha;
+function editar(id,comentario){
+
 	document.getElementById('comentario').value=comentario;
 	var boton=document.getElementById('boton');
 	boton.innerHTML = 'Editar';
 
 	boton.onclick = function(){
 	var washingtonRef = db.collection("users").doc(id);	
-
-var nombre =document.getElementById('nombre').value;
-var apellido=document.getElementById('fecha').value;
-var fecha=document.getElementById('comentario').value;
+var comentario=document.getElementById('comentario').value;
 
 return washingtonRef.update({
-    first: nombre,
-    last: fecha,
+    
     born: comentario
 })
 .then(function() {
     console.log("Document successfully updated!");
     boton.innerHTML = 'guardar';
-    document.getElementById('nombre').value = "";
-	document.getElementById('fecha').value= "";
+    
 	document.getElementById('comentario').value= "";
 })
 .catch(function(error) {
@@ -221,4 +223,31 @@ return washingtonRef.update({
 }
 }
 
+function formatDate(date) {
+  var monthNames = [
+    "January", "February", "March",
+    "April", "May", "June", "July",
+    "August", "September", "October",
+    "November", "December"
+  ];
 
+  var day = date.getDate();
+  var monthIndex = date.getMonth();
+  var year = date.getFullYear();
+
+  return day + ' ' + monthNames[monthIndex] + ' ' + year;
+}
+var fecha=(formatDate(new Date())); 
+console.log(fecha);
+
+
+//borrar documentos
+function confirmDelete(id){
+  var respuesta = confirm ("¿Estas seguro que deseas borrar el comentario?");
+  if (respuesta ==true){
+    eliminar(id);
+  }
+  else{
+    return false;
+  }
+}

@@ -13,13 +13,35 @@
 </head>
 
 <body>
+ <!-- Pantalla 0 portada-->
+ <div class="screen0" id="screen0"> 
+    <div class="bienvenida">
+        <article class="imgBack">
+                <img src="../img/7ad27432-1c8d-4be5-b74a-043ca2717e85.png" width="120" height="120"/>
+    <br><br>
+            <p class="textBienvenida">Green tree es una red para compartir ideas de reciclaje con amigos, familiares y otros usuarios.
+          <br>Crea tu cuenta, dame una idea y que el planeta la recicle!</p>
+          
+          <div class="container">
+              <div class="row align-items-center">
+                <div class="col-xs-2 col-sm-12 col-md-12 col-lg-12">
+                  <div class="p-5">
+                    <a id="entrar" class="entrar">Entrar</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+      </div>
+   </div>
    <!-- Pantalla 1 iniciar sesion -->
+   
   <div id="screen1" class="page">
-    <img
-      src="https://lh3.googleusercontent.com/RnyA1kU8hLkUMbDICeeDspL3YUeKZPzCrJeZaeLAnjnRBTtSx-iOjPe-RdgzyLB_3tHZvcEBmWui8OVSnKI8MWkVxSLA_YqkjzygB1pOL2zIwa8lNZUtICpLMHaB6n81awlapYb49mOLVXSL_FvMC75TDh0PeOTaFz1HrMBpMICBkn_9XR1ptJzDGwZuqXhFOI-8WGY2Qdzwbw0KbFvVujYkhCzqIv1dD8h9QsaI48NEtQiD7xJ2eKLU55MJWdMkP_osOylBElvFt4HfFxLBn8G2c2ElElm4-LwiFLOwFEri8eCMFAlrtzQcIbOdy7SsaYhQEtrHYHWy3qw5qaqasDnLO82rmKQ-jvO_TsWElPRBooq_fXwkVQm3ZDk-e90zC4B0V23MgRs1PTYr3t-FAwpi5c7irHiq2w3jY7fIH6kGEs9s_q1PgraTjjwpN-CM2PBjU30_on72MSxmII-pOlW6mWueVQ0unZiwMXUhAHdRdDIcFmM_FMw8P2vZfGX0HuddLVPunzXcBAIBS1vaEefcrTC8Ig39X4yDd4Pmh53IMjZmE_wfVsTy5EgBQMsd10WgeazWUIeYgPQSNqWf0IH0KXO1IOUaB5B8rgAvlEmRBut-bzI9OLCNdZMULaPPKQzOTFBx05EkdyBmYSobMnpQJDK0AcF5xLLjmOKu1Ol47JHCbqzcG5u0JOXv36M7rX104PrctNggq34VbQ=s200-no"
-      alt="" class="img">
+    <img src="../img/7ad27432-1c8d-4be5-b74a-043ca2717e85.png" width="120" height="120"/>
     <div class="social">
       <h1 class="title">Iniciar Sesion</h1>
+      <input type="text" id="nombre" placeholder="usuario" required></input>
+      <span id="emailOK"></span><br><br>
       <input type="email" id="email" placeholder="E-mail" required></input>
       <span id="emailOK"></span><br><br>
       <input type="password" id="password" placeholder="Password" required></input><br><br>
@@ -32,7 +54,7 @@
     </div>
     <div class="social">
       <span id="sing">O inicia con las redes sociales.</span><br><br>
-      <button id="facebook" class="buttons"> Facebook</button>
+      
       <button id="google" class=" buttons ">Google</button>
     </div><br>
   </div>
@@ -41,7 +63,7 @@
   <div id="screen2" class="page">
     <header class="container-fluid">
         <nav class="navbar navbar-dark" style="background-color: #546c2a;">
-            <a class="navbar-brand" href="#">Navbar</a>
+            <a class="navbar-brand" href="#"><img src="../img/7ad27432-1c8d-4be5-b74a-043ca2717e85.png" width="70" height="70"/></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
@@ -69,12 +91,12 @@
 
     
 <!--NUEVOS DATOS-->
-<h1>Postear</h1>
+
   
   <div class="container"></div>
   <!-- Introducir datos -->
   <div class="new-post"></div>
-</div>
+
 <div id="sub-menu">
   <div id="left-bar">
     <div class="heading">
@@ -90,8 +112,8 @@
     <div class="user">
       <div class="user-img"></div>
       <div class="user-info">
-        <div class="user-name"><input type="text" id="nombre" placeholder="nombre"></div>
-        <span class="post-date"><input type="text" id="fecha" placeholder="fecha"></span>
+        <div class="user-name" id="nombre"></div>
+        <span class="post-date"></span>
       </div>
       
     </div>
@@ -103,8 +125,7 @@
   <div id="newPost"></div>
   </div>
 
-<!--FIN NUEVOS DATOS-->
-            
+  </div>  
     </div>
   </div>
   </div>
