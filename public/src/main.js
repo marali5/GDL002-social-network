@@ -1,5 +1,4 @@
 
-firebase.initializeApp(config);
 entrar.addEventListener("click", function(){
 
 document.getElementById("screen1").style.display = "block";
